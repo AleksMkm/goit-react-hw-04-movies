@@ -16,8 +16,18 @@ function getTrendingData() {
     });
 }
 
+function getSearchData(query) {
+  const url = `${BASE_URL}/search/movie?api_key=${KEY}&language=en-US&query=${query}`;
+  return fetch(url)
+    .then(response => response.json())
+    .then(response => {
+      return response;
+    });
+}
+
 const api = {
   getTrendingData,
+  getSearchData,
 };
 
 export default api;

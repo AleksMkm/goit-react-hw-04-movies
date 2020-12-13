@@ -21,6 +21,7 @@ class SearchForm extends Component {
     e.preventDefault();
     const query = this.state.value.toLowerCase().trim();
     if (query === '') {
+      console.log(query);
       toast.error('Please enter a query');
       this.btn.current.blur();
       return;
@@ -32,21 +33,18 @@ class SearchForm extends Component {
 
   render() {
     return (
-      <header className={s.searchbar}>
-        <form className={s.form} onSubmit={this.handleSubmit}>
-          <button type="submit" className={s.btn} ref={this.btn}>
-            Search
-          </button>
-
-          <input
-            className={s.input}
-            type="text"
-            value={this.state.value}
-            placeholder="Search movies"
-            onChange={this.handleInput}
-          />
-        </form>
-      </header>
+      <form className={s.form} onSubmit={this.handleSubmit}>
+        <input
+          className={s.input}
+          type="text"
+          value={this.state.value}
+          placeholder="Search movies"
+          onChange={this.handleInput}
+        />
+        <button type="submit" className={s.btn} ref={this.btn}>
+          Search
+        </button>
+      </form>
     );
   }
 }
