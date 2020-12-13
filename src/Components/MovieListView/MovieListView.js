@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import s from './MovieListView.module.css';
+import s from './MovieListView.module.css';
 
-function MovieListView({ movies, title }) {
+function MovieListView({ movies, title, getMovieId }) {
   return (
     <>
       <h2>{title}</h2>
@@ -10,13 +10,9 @@ function MovieListView({ movies, title }) {
         {movies.map(movie => {
           return (
             <li key={movie.id}>
-              {' '}
-              <a
-                href="https://developers.themoviedb.org/3/search/search-movies"
-                target="blank"
-              >
+              <button data-id={movie.id} onClick={getMovieId} className={s.btn}>
                 {movie.title}
-              </a>
+              </button>
             </li>
           );
         })}

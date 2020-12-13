@@ -1,0 +1,11 @@
+.btn {
+  font-family: Roboto, sans-serif;
+  text-decoration: underline;
+
+  color: darkblue;
+  background-color: transparent;
+  border: none;
+  outline: none;
+
+  cursor: pointer;
+}

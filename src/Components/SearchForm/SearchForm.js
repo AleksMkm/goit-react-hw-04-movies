@@ -21,7 +21,6 @@ class SearchForm extends Component {
     e.preventDefault();
     const query = this.state.value.toLowerCase().trim();
     if (query === '') {
-      console.log(query);
       toast.error('Please enter a query');
       this.btn.current.blur();
       return;

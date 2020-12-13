@@ -7,6 +7,15 @@ class Header extends Component {
     activePage: 'home',
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevState.activePage === 'home' &&
+      this.props.currentPage === 'moviecard'
+    ) {
+      this.setState({ activePage: '' });
+    }
+  }
+
   handleChange = e => {
     const { name, value } = e.currentTarget;
     this.setState({ [name]: value });

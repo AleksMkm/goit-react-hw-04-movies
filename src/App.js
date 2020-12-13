@@ -7,11 +7,15 @@ import MovieListView from './Components/MovieListView';
 import moviesAPI from './services/movies-api';
 import SearchForm from './Components/SearchForm';
 import Loader from './Components/Loader';
+import errorPlaceholder from './images/errorPlaceholder.jpg';
+import MovieCard from './Components/MovieCard';
 
 const INITIAL_STATE = {
   activePage: 'home',
   searchQuery: '',
   movies: null,
+  movieDetails: null,
+  movieId: '',
 };
 
 const Status = {
@@ -38,26 +42,47 @@ class App extends Component {
     const nextQuery = this.state.searchQuery;
     const prevPage = prevState.activePage;
     const nextPage = this.state.activePage;
+    const prevId = prevState.movieId;
+    const nextId = this.state.movieId;
 
     if (prevQuery !== nextQuery && nextPage === 'movies') {
-      this.setState({ status: Status.PENDING });
-      moviesAPI.getSearchData(nextQuery).then(data => {
-        this.setState({ movies: data.results, status: Status.RESOLVED });
-      });
+      this.showSearchResults(nextQuery);
     }
 
     if (prevPage !== nextPage && nextPage === 'home') {
       this.showTrendingMovies();
       this.setState({ searchQuery: '' });
     }
+
+    if (prevId !== nextId) {
+      this.handleOpeningOfMovieCard(nextId);
+    }
   }
 
   showTrendingMovies = () => {
     this.setState({ status: Status.PENDING });
-    moviesAPI.getTrendingData().then(data => {
-      console.log(data);
-      this.setState({ movies: data.results, status: Status.RESOLVED });
-    });
+    moviesAPI
+      .getTrendingData()
+      .then(data => {
+        console.log(data);
+        this.setState({ movies: data.results, status: Status.RESOLVED });
+      })
+      .catch(error => this.setState({ status: Status.REJECTED }));
+  };
+
+  showSearchResults = nextQuery => {
+    this.setState({ status: Status.PENDING });
+    moviesAPI
+      .getSearchData(nextQuery)
+      .then(data => {
+        console.log(data);
+        if (data.total_results === 0) {
+          this.setState({ status: Status.REJECTED });
+          return;
+        }
+        this.setState({ movies: data.results, status: Status.RESOLVED });
+      })
+      .catch(error => this.setState({ status: Status.REJECTED }));
   };
 
   handleNav = nextPage => {
@@ -68,18 +93,51 @@ class App extends Component {
     this.setState({ searchQuery: query });
   };
 
+  getMovieId = e => {
+    this.setState({ movieId: e.target.dataset.id });
+  };
+
+  handleOpeningOfMovieCard = nextId => {
+    this.setState({ status: Status.PENDING });
+    moviesAPI
+      .getMovieById(nextId)
+      .then(data => {
+        console.log(data);
+        // if (data.status_code === 34) {
+        //   this.setState({ status: Status.REJECTED });
+        //   return;
+        // }
+        this.setState({
+          activePage: 'moviecard',
+          movieDetails: data,
+          status: Status.RESOLVED,
+        });
+      })
+      .catch(error => this.setState({ status: Status.REJECTED }));
+  };
+
   render() {
-    const { movies, activePage, searchQuery, status } = this.state;
+    const {
+      movies,
+      activePage,
+      searchQuery,
+      status,
+      movieDetails,
+    } = this.state;
 
     return (
       <Container>
-        <Header changeView={this.handleNav} />
+        <Header changeView={this.handleNav} currentPage={activePage} />
 
         {movies && activePage === 'home' && status === Status.PENDING && (
           <Loader />
         )}
         {movies && activePage === 'home' && status === Status.RESOLVED && (
-          <MovieListView movies={movies} title="Trending today" />
+          <MovieListView
+            movies={movies}
+            title="Trending today"
+            getMovieId={this.getMovieId}
+          />
         )}
 
         {activePage === 'movies' && (
@@ -94,8 +152,29 @@ class App extends Component {
           movies &&
           activePage === 'movies' &&
           status === Status.RESOLVED && (
-            <MovieListView movies={movies} title="Search results:" />
+            <MovieListView
+              movies={movies}
+              title="Search results:"
+              getMovieId={this.getMovieId}
+            />
           )}
+        {activePage === 'movies' && status === Status.REJECTED && (
+          <div>
+            <p style={{ fontFamily: 'Roboto, sans-serif', fontWeight: '700' }}>
+              No movies for `${searchQuery} query. Please search for something
+              else!`
+            </p>
+            <img
+              style={{ width: '500px' }}
+              src={errorPlaceholder}
+              alt="error"
+            />
+          </div>
+        )}
+
+        {movieDetails && activePage === 'moviecard' && (
+          <MovieCard movie={movieDetails} />
+        )}
 
         <ToastContainer autoClose={3000} />
       </Container>
