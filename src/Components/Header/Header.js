@@ -10,7 +10,7 @@ class Header extends Component {
   handleChange = e => {
     const { name, value } = e.currentTarget;
     this.setState({ [name]: value });
-    this.props.changeView();
+    this.props.changeView(value);
   };
 
   render() {
