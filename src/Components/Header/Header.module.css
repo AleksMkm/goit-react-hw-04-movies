@@ -1,0 +1,44 @@
+.header {
+  width: 100%;
+}
+
+.wrapper {
+  position: relative;
+
+  width: 100%;
+
+  padding: 10px 24px;
+
+  border-bottom: 1px solid black;
+  box-shadow: 0px 5px 14px -1px #000000;
+
+  background-color: lightgray;
+}
+.control:not(:last-child) {
+  margin-right: 10px;
+}
+
+.input {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
+
+.btn {
+  font-family: Roboto, sans-serif;
+
+  background-color: transparent;
+  color: brown;
+  border: none;
+  outline: none;
+}
+
+.input:checked ~ .btn {
+  color: black;
+  font-weight: 700;
+}
