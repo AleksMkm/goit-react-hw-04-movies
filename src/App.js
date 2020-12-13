@@ -6,6 +6,7 @@ import Header from './Components/Header';
 import MovieListView from './Components/MovieListView';
 import moviesAPI from './services/movies-api';
 import SearchForm from './Components/SearchForm';
+import Loader from './Components/Loader';
 
 const INITIAL_STATE = {
   activePage: 'home',
@@ -68,20 +69,34 @@ class App extends Component {
   };
 
   render() {
-    const { movies, activePage, searchQuery } = this.state;
+    const { movies, activePage, searchQuery, status } = this.state;
 
     return (
       <Container>
         <Header changeView={this.handleNav} />
-        {movies && activePage === 'home' && (
+
+        {movies && activePage === 'home' && status === Status.PENDING && (
+          <Loader />
+        )}
+        {movies && activePage === 'home' && status === Status.RESOLVED && (
           <MovieListView movies={movies} title="Trending today" />
         )}
+
         {activePage === 'movies' && (
           <SearchForm getSearchQuery={this.getSearchQuery} />
         )}
-        {searchQuery && movies && activePage === 'movies' && (
-          <MovieListView movies={movies} title="Search results:" />
-        )}
+
+        {searchQuery &&
+          movies &&
+          activePage === 'movies' &&
+          status === Status.PENDING && <Loader />}
+        {searchQuery &&
+          movies &&
+          activePage === 'movies' &&
+          status === Status.RESOLVED && (
+            <MovieListView movies={movies} title="Search results:" />
+          )}
+
         <ToastContainer autoClose={3000} />
       </Container>
     );
