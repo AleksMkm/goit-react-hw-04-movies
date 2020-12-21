@@ -1,51 +1,42 @@
-import React, { Component } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import s from './SearchForm.module.css';
 
-class SearchForm extends Component {
-  constructor(props) {
-    super(props);
-    this.btn = React.createRef();
-  }
+function SearchForm({ getSearchQuery }) {
+  const [value, setValue] = useState('');
 
-  state = {
-    value: '',
-  };
+  const btn = useRef(null);
 
-  handleInput = e => {
-    this.setState({ value: e.target.value });
-  };
-
-  handleSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    const query = this.state.value.toLowerCase().trim();
+    const query = value.toLowerCase().trim();
     if (query === '') {
       toast.error('Please enter a query');
-      this.btn.current.blur();
+      btn.current.blur();
       return;
     }
-    this.props.getSearchQuery(query);
-    this.setState({ value: '' });
-    this.btn.current.blur();
+    getSearchQuery(query);
+    setValue('');
+    btn.current.blur();
   };
 
-  render() {
-    return (
-      <form className={s.form} onSubmit={this.handleSubmit}>
-        <input
-          className={s.input}
-          type="text"
-          value={this.state.value}
-          placeholder="Search movies"
-          onChange={this.handleInput}
-        />
-        <button type="submit" className={s.btn} ref={this.btn}>
-          Search
-        </button>
-      </form>
-    );
-  }
+  return (
+    <form className={s.form} onSubmit={handleSubmit}>
+      <input
+        className={s.input}
+        type="text"
+        value={value}
+        placeholder="Search movies"
+        onChange={e => {
+          setValue(e.target.value);
+        }}
+      />
+      <button type="submit" className={s.btn} ref={btn}>
+        Search
+      </button>
+    </form>
+  );
 }
 
 export default SearchForm;

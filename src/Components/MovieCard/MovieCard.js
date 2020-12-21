@@ -1,24 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-class MovieCard extends Component {
-  state = {
-    castIsShown: false,
-    reviewsAreShown: false,
-  };
+function MovieCard({ movie }) {
+  // const [castIsShown, setCastIsShown] = useState(false);
+  // const [reviewsAreShown, setReviewsAreShown] = useState(false);
 
-  render() {
-    const { movie } = this.props;
-
-    return (
-      <>
-        {movie.status_code === 34 && <div>We have a problem</div>}
-        <div>
-          <div>Wow, a card!</div>
-        </div>
-      </>
-    );
-  }
+  return (
+    <>
+      {movie.status_code === 34 && <div>We have a problem</div>}
+      <div>
+        <div>Wow, a card!</div>
+      </div>
+    </>
+  );
 }
 
 export default MovieCard;

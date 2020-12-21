@@ -54,4 +54,5 @@ export default Header;
 
 Header.propTypes = {
   changeView: PropTypes.func.isRequired,
+  currentPage: PropTypes.string.isRequired,
 };
