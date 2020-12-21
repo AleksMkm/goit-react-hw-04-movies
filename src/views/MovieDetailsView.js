@@ -12,7 +12,7 @@ const Status = {
   REJECTED: 'rejected',
 };
 
-function MovieDetailsView() {
+export default function MovieDetailsView() {
   const [movie, setMovie] = useState(null);
   const [status, setStatus] = useState(Status.IDLE);
   const { movieId } = useParams();
@@ -42,5 +42,3 @@ function MovieDetailsView() {
     </>
   );
 }
-
-export default MovieDetailsView;

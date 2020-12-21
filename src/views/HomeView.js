@@ -11,7 +11,7 @@ const Status = {
   REJECTED: 'rejected',
 };
 
-function HomeView() {
+export default function HomeView() {
   const [movies, setMovies] = useState(null);
   const [status, setStatus] = useState(Status.IDLE);
 
@@ -39,27 +39,3 @@ function HomeView() {
     </>
   );
 }
-
-export default HomeView;
-
-// showTrendingMovies = () => {
-//   this.setState({ status: Status.PENDING });
-//   moviesAPI
-//     .getTrendingData()
-//     .then(data => {
-//       console.log(data);
-//       this.setState({ movies: data.results, status: Status.RESOLVED });
-//     })
-//     .catch(error => this.setState({ status: Status.REJECTED }));
-// };
-
-//     {movies && activePage === 'home' && status === Status.PENDING && (
-//       <Loader />
-//     )}
-//     {movies && activePage === 'home' && status === Status.RESOLVED && (
-//       <MovieListView
-// movies={movies}
-// title="Trending today"
-//         getMovieId={this.getMovieId}
-//       />
-//     )}
