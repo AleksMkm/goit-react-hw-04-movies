@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import s from './MovieListView.module.css';
+import s from './MovieList.module.css';
 
-function MovieListView({ movies, title, getMovieId }) {
+function MovieList({ movies, title }) {
   return (
     <>
       <h2>{title}</h2>
@@ -10,9 +11,9 @@ function MovieListView({ movies, title, getMovieId }) {
         {movies.map(movie => {
           return (
             <li key={movie.id}>
-              <button data-id={movie.id} onClick={getMovieId} className={s.btn}>
+              <Link to={`/movies/${movie.id}`} className={s.link}>
                 {movie.title}
-              </button>
+              </Link>
             </li>
           );
         })}
@@ -21,9 +22,9 @@ function MovieListView({ movies, title, getMovieId }) {
   );
 }
 
-export default MovieListView;
+export default MovieList;
 
-MovieListView.propTypes = {
+MovieList.propTypes = {
   movies: PropTypes.arrayOf(PropTypes.object).isRequired,
   title: PropTypes.string.isRequired,
 };

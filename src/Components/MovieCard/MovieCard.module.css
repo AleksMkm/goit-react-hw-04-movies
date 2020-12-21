@@ -1,0 +1,21 @@
+.wrapper {
+  display: flex;
+  width: 100%;
+  padding: 10px;
+}
+
+.image {
+  display: block;
+
+  max-width: 200px;
+
+  margin-right: 30px;
+}
+
+.content {
+  font-family: Roboto, sans-serif;
+}
+
+.category {
+  font-weight: 500;
+}

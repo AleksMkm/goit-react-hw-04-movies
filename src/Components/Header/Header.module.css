@@ -14,23 +14,10 @@
 
   background-color: lightgray;
 }
-.control:not(:last-child) {
-  margin-right: 10px;
-}
 
-.input {
-  position: absolute;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  width: 1px;
-  margin: -1px;
-  padding: 0;
-  border: 0;
-}
-
-.btn {
+.link {
   font-family: Roboto, sans-serif;
+  text-decoration: none;
 
   background-color: transparent;
   color: brown;
@@ -38,7 +25,11 @@
   outline: none;
 }
 
-.input:checked ~ .btn {
+.link:not(:last-child) {
+  margin-right: 10px;
+}
+
+.activeLink {
   color: black;
   font-weight: 700;
 }
