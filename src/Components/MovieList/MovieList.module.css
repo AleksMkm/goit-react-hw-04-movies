@@ -1,11 +1,51 @@
-.btn {
+.wrapper {
+  text-align: center;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+
+  margin: -15px;
+  padding: 0;
+
+  list-style: none;
+}
+
+.item {
+  margin: 15px;
+
+  width: calc((100% - 150px) / 5);
+
+  border-radius: 5px;
+  box-shadow: 5px 5px 18px 1px #000000;
+  overflow: hidden;
+
+  transform: scale(1);
+
+  transition: transform 250ms ease;
+}
+
+.item:hover,
+.item:focus {
+  transform: scale(1.07);
+}
+
+.image {
+  display: block;
+  width: 100%;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.title {
+  margin: 0;
+  padding: 5px;
+
   font-family: Roboto, sans-serif;
-  text-decoration: underline;
-
-  color: darkblue;
-  background-color: transparent;
-  border: none;
-  outline: none;
-
-  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

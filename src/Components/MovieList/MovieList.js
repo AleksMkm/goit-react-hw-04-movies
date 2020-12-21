@@ -5,20 +5,25 @@ import s from './MovieList.module.css';
 
 function MovieList({ movies, title }) {
   return (
-    <>
+    <div className={s.wrapper}>
       <h2>{title}</h2>
-      <ul>
+      <ul className={s.list}>
         {movies.map(movie => {
           return (
-            <li key={movie.id}>
+            <li key={movie.id} className={s.item}>
               <Link to={`/movies/${movie.id}`} className={s.link}>
-                {movie.title}
+                <img
+                  className={s.image}
+                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                  alt={movie.title}
+                />
+                <p className={s.title}>{movie.title}</p>
               </Link>
             </li>
           );
         })}
       </ul>
-    </>
+    </div>
   );
 }
 

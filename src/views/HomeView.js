@@ -20,6 +20,7 @@ function HomeView() {
     moviesAPI
       .getTrendingData()
       .then(data => {
+        console.log(data.results);
         setMovies(data.results);
         setStatus(Status.RESOLVED);
       })
