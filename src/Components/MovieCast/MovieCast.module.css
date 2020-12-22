@@ -1,0 +1,37 @@
+.wrapper {
+  padding: 15px;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+
+  padding: 0;
+  margin: -15px;
+
+  list-style: none;
+}
+
+.item {
+  margin: 15px;
+
+  width: calc((100% - 300px) / 10);
+
+  text-align: center;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  min-height: 135px;
+  object-fit: cover;
+}
+
+.name {
+  font-family: Roboto, sans-serif;
+}
+
+.character {
+  font-family: Roboto, sans-serif;
+  font-size: 10px;
+}
