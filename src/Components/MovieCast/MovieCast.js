@@ -46,12 +46,12 @@ export default function MovieCast({ id }) {
                 <li className={s.item} key={actor.cast_id}>
                   <img
                     className={s.image}
-                    src={`https://image.tmdb.org/t/p/w500${actor.profile_path}`}
+                    src={
+                      actor.profile_path
+                        ? `https://image.tmdb.org/t/p/w500${actor.profile_path}`
+                        : imagePlaceholder
+                    }
                     alt={actor.name}
-                    onError={e => {
-                      e.target.onerror = null;
-                      e.target.src = imagePlaceholder;
-                    }}
                   />
                   <p className={s.name}>{actor.name}</p>
                   <p className={s.character}>

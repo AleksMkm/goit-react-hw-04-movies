@@ -13,12 +13,12 @@ function MovieCard({ movie }) {
       <div className={s.wrapper}>
         <img
           className={s.image}
-          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+          src={
+            movie.poster_path
+              ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+              : imagePlaceholder
+          }
           alt={movie.title}
-          onError={e => {
-            e.target.onerror = null;
-            e.target.src = imagePlaceholder;
-          }}
         />
         <div className={s.content}>
           <h2 className={s.title}>{movie.title}</h2>
