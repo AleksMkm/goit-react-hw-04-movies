@@ -6,6 +6,7 @@ import MovieCast from '../components/MovieCast';
 import MovieReviews from '../components/MovieReviews';
 import Loader from '../components/Loader';
 import ErrorView from './ErrorView';
+import Button from '../components/Button';
 
 const Status = {
   IDLE: 'idle',
@@ -41,6 +42,10 @@ export default function MovieDetailsView() {
 
   return (
     <>
+      <div style={{ width: '100%' }}>
+        <Button />
+      </div>
+
       {status === Status.PENDING && <Loader />}
       {status === Status.RESOLVED && <MovieCard movie={movie} />}
       {status === Status.REJECTED && <ErrorView title={error.message} />}
