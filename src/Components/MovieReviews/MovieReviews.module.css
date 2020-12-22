@@ -1,0 +1,13 @@
+.list {
+  padding-right: 30px;
+
+  font-family: Roboto, sans-serif;
+}
+
+.author {
+  font-weight: 700;
+}
+
+.text {
+  text-align: justify;
+}

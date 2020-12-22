@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import moviesAPI from '../../services/movies-api';
 import Loader from '../Loader';
-import ErrorView from '../../views/ErrorView';
 import s from './MovieCast.module.css';
 import imagePlaceholder from '../../images/imagePlaceholder.png';
 
