@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NavLink, useRouteMatch } from 'react-router-dom';
+import { NavLink, useRouteMatch, useLocation } from 'react-router-dom';
 import s from './MovieCard.module.css';
 import imagePlaceholder from '../../images/imagePlaceholder.png';
 
 function MovieCard({ movie }) {
   const mappedGenres = movie.genres.map(genre => genre.name).join(', ');
   const { url } = useRouteMatch();
+  const location = useLocation();
 
   return (
     <>
@@ -34,7 +35,10 @@ function MovieCard({ movie }) {
         <ul className={s.list}>
           <li className={s.item}>
             <NavLink
-              to={`${url}/cast`}
+              to={{
+                pathname: `${url}/cast`,
+                state: location.state,
+              }}
               className={s.link}
               activeClassName={s.activeLink}
             >
@@ -43,7 +47,10 @@ function MovieCard({ movie }) {
           </li>
           <li className={s.item}>
             <NavLink
-              to={`${url}/reviews`}
+              to={{
+                pathname: `${url}/reviews`,
+                state: location.state,
+              }}
               className={s.link}
               activeClassName={s.activeLink}
             >

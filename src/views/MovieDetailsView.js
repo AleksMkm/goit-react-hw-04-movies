@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Route, useParams, useRouteMatch } from 'react-router-dom';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import moviesAPI from '../services/movies-api';
 import MovieCard from '../components/MovieCard';
 import MovieCast from '../components/MovieCast';
@@ -22,15 +22,11 @@ export default function MovieDetailsView() {
   const [error, setError] = useState(null);
   const { movieId } = useParams();
   const { path } = useRouteMatch();
-  const history = useHistory();
+  // const history = useHistory();
+
   const location = useLocation();
 
-  console.log(history);
-  console.log(`location at view:`);
-  console.log(location);
-
-  const locationOfOrigin = location.state.pathname;
-  console.log(`locationOfOrigin: ${locationOfOrigin}`);
+  // console.log(history);
 
   useEffect(() => {
     setStatus(Status.PENDING);
@@ -50,12 +46,10 @@ export default function MovieDetailsView() {
       });
   }, [movieId]);
 
-  const goBack = () => {};
-
   return (
     <>
       <div style={{ width: '100%' }}>
-        <Button handleClick={goBack} />
+        <Button route={location.state} />
       </div>
 
       {status === Status.PENDING && <Loader />}

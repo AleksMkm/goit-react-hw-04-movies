@@ -15,7 +15,10 @@ function MovieList({ movies, title }) {
           return (
             <li key={movie.id} className={s.item}>
               <Link
-                to={{ pathname: `/movies/${movie.id}`, state: location }}
+                to={{
+                  pathname: `/movies/${movie.id}`,
+                  state: location.pathname,
+                }}
                 className={s.link}
               >
                 <img
