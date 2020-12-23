@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import moviesAPI from '../services/movies-api';
-import MovieList from '../components/MovieList';
-import Loader from '../components/Loader';
+import MovieList from '../Components/MovieList';
+import Loader from '../Components/Loader';
 import ErrorView from './ErrorView';
 
 const Status = {

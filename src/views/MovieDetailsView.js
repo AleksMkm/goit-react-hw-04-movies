@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Route, useParams, useRouteMatch } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import moviesAPI from '../services/movies-api';
-import MovieCard from '../components/MovieCard';
-import MovieCast from '../components/MovieCast';
-import MovieReviews from '../components/MovieReviews';
-import Loader from '../components/Loader';
+import MovieCard from '../Components/MovieCard';
+import MovieCast from '../Components/MovieCast';
+import MovieReviews from '../Components/MovieReviews';
+import Loader from '../Components/Loader';
 import ErrorView from './ErrorView';
-import Button from '../components/Button';
+import Button from '../Components/Button';
 
 const Status = {
   IDLE: 'idle',

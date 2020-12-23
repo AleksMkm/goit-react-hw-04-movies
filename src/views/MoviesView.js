@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import SearchForm from '../components/SearchForm';
+import SearchForm from '../Components/SearchForm';
 
 export default function SearchMoviesView() {
   const [query, setQuery] = useState('');
