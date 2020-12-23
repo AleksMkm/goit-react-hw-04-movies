@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
 import moviesAPI from '../../services/movies-api';
 import Loader from '../Loader';
 import s from './MovieCast.module.css';
@@ -16,6 +17,11 @@ export default function MovieCast({ id }) {
   const [cast, setCast] = useState(null);
   const [status, setStatus] = useState(Status.IDLE);
   const [error, setError] = useState(null);
+
+  const location = useLocation();
+
+  console.log(`location at cast:`);
+  console.log(location);
 
   useEffect(() => {
     setStatus(Status.PENDING);

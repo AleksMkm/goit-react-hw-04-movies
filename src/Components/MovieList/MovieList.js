@@ -1,9 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import s from './MovieList.module.css';
 
 function MovieList({ movies, title }) {
+  const location = useLocation();
+
   return (
     <div className={s.wrapper}>
       <h2>{title}</h2>
@@ -11,7 +14,10 @@ function MovieList({ movies, title }) {
         {movies.map(movie => {
           return (
             <li key={movie.id} className={s.item}>
-              <Link to={`/movies/${movie.id}`} className={s.link}>
+              <Link
+                to={{ pathname: `/movies/${movie.id}`, state: location }}
+                className={s.link}
+              >
                 <img
                   className={s.image}
                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}

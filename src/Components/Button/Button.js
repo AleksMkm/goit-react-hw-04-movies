@@ -1,13 +1,8 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-export default function Button() {
+export default function Button({ handleClick }) {
   const label = '<- Go back';
-  const history = useHistory();
-
-  function handleClick() {
-    history.goBack();
-  }
 
   return (
     <button type="button" onClick={handleClick}>
@@ -15,3 +10,7 @@ export default function Button() {
     </button>
   );
 }
+
+Button.propTypes = {
+  handleClick: PropTypes.func.isRequired,
+};
