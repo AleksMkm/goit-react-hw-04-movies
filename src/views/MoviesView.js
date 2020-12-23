@@ -27,9 +27,6 @@ export default function SearchMoviesView() {
     history.push({ ...location, search: `query=${query}` });
   };
 
-  console.log(location);
-  console.log(`movies ${location.state}`);
-
   useEffect(() => {
     if (searchQuery === '') {
       return;
@@ -55,7 +52,7 @@ export default function SearchMoviesView() {
     <>
       <SearchForm getSearchQuery={onSearchQueryChange} />
       {status === Status.PENDING && <Loader />}
-      {status === Status.RESOLVED && (
+      {searchQuery && status === Status.RESOLVED && (
         <MovieList
           movies={movies}
           title={`Search results for ${searchQuery}`}
