@@ -5,11 +5,11 @@ import PropTypes from 'prop-types';
 export default function Button({ route }) {
   const label = '<- Go back';
 
-  const handleClick = () => {};
+  const navRoute = route ? route : '/';
 
   return (
-    <button type="button" onClick={handleClick}>
-      <Link to={route} style={{ textDecoration: 'none', color: 'black' }}>
+    <button type="button">
+      <Link to={navRoute} style={{ textDecoration: 'none', color: 'black' }}>
         {label}
       </Link>
     </button>
@@ -17,5 +17,5 @@ export default function Button({ route }) {
 }
 
 Button.propTypes = {
-  handleClick: PropTypes.string.isRequired,
+  route: PropTypes.string.isRequired,
 };
