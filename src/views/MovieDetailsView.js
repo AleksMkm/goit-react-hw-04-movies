@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, useParams, useRouteMatch } from 'react-router-dom';
+import { Redirect, Route, useParams, useRouteMatch } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import moviesAPI from '../services/movies-api';
 import MovieCard from '../Components/MovieCard';
@@ -21,9 +21,14 @@ export default function MovieDetailsView() {
   const [status, setStatus] = useState(Status.IDLE);
   const [error, setError] = useState(null);
   const { movieId } = useParams();
-  const { path } = useRouteMatch();
+  const { url, path } = useRouteMatch();
 
   const location = useLocation();
+
+  const isValidRoute =
+    location.pathname === url ||
+    location.pathname === `${url}/reviews` ||
+    location.pathname === `${url}/cast`;
 
   useEffect(() => {
     setStatus(Status.PENDING);
@@ -45,6 +50,8 @@ export default function MovieDetailsView() {
 
   return (
     <>
+      {!isValidRoute && <Redirect to="/" />}
+
       <div style={{ width: '100%' }}>
         <Button route={location.state} />
       </div>
