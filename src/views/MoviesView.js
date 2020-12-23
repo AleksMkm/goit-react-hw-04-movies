@@ -21,18 +21,14 @@ export default function SearchMoviesView() {
   const history = useHistory();
   const location = useLocation();
 
-  // this should be on submit
-  // <Route path={`${path}/reviews`}>
-  //   {movie && <MovieReviews id={movie.id} />}
-  // </Route>;
-
   const searchQuery = new URLSearchParams(location.search).get('query') ?? '';
 
   const onSearchQueryChange = query => {
     history.push({ ...location, search: `query=${query}` });
   };
 
-  console.log(searchQuery);
+  console.log(location);
+  console.log(`movies ${location.state}`);
 
   useEffect(() => {
     if (searchQuery === '') {
@@ -69,18 +65,3 @@ export default function SearchMoviesView() {
     </>
   );
 }
-
-// showSearchResults = nextQuery => {
-//   this.setState({ status: Status.PENDING });
-//   moviesAPI
-//     .getSearchData(nextQuery)
-//     .then(data => {
-//       console.log(data);
-//       if (data.total_results === 0) {
-//         this.setState({ status: Status.REJECTED });
-//         return;
-//       }
-//       this.setState({ movies: data.results, status: Status.RESOLVED });
-//     })
-//     .catch(error => this.setState({ status: Status.REJECTED }));
-// };

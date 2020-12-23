@@ -22,11 +22,8 @@ export default function MovieDetailsView() {
   const [error, setError] = useState(null);
   const { movieId } = useParams();
   const { path } = useRouteMatch();
-  // const history = useHistory();
 
   const location = useLocation();
-
-  // console.log(history);
 
   useEffect(() => {
     setStatus(Status.PENDING);

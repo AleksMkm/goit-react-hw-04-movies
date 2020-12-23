@@ -7,6 +7,7 @@ import imagePlaceholder from '../../images/imagePlaceholder.png';
 
 function MovieList({ movies, title }) {
   const location = useLocation();
+  const navRoute = `${location.pathname}${location.search}`;
 
   return (
     <div className={s.wrapper}>
@@ -18,7 +19,7 @@ function MovieList({ movies, title }) {
               <Link
                 to={{
                   pathname: `/movies/${movie.id}`,
-                  state: location.pathname,
+                  state: navRoute,
                 }}
                 className={s.link}
               >
