@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import s from './MovieList.module.css';
+import imagePlaceholder from '../../images/imagePlaceholder.png';
 
 function MovieList({ movies, title }) {
   const location = useLocation();
@@ -23,7 +24,11 @@ function MovieList({ movies, title }) {
               >
                 <img
                   className={s.image}
-                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                  src={
+                    movie.poster_path
+                      ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                      : imagePlaceholder
+                  }
                   alt={movie.title}
                 />
                 <p className={s.title}>{movie.title}</p>
