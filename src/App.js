@@ -1,12 +1,11 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Container from './Components/Container';
 import Header from './Components/Header';
 import HomeView from './views/HomeView';
 import SearchMoviesView from './views/MoviesView';
-import ErrorView from './views/ErrorView';
 import MovieDetailsView from './views/MovieDetailsView';
 
 function App() {
@@ -27,9 +26,7 @@ function App() {
           <MovieDetailsView />
         </Route>
 
-        <Route>
-          <ErrorView />
-        </Route>
+        <Redirect to="/" />
       </Switch>
 
       <ToastContainer autoClose={3000} />
