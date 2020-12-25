@@ -1,13 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { Redirect, Route, useParams, useRouteMatch } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import moviesAPI from '../services/movies-api';
 import MovieCard from '../Components/MovieCard';
-import MovieCast from '../Components/MovieCast';
-import MovieReviews from '../Components/MovieReviews';
 import Loader from '../Components/Loader';
 import ErrorView from './ErrorView';
 import Button from '../Components/Button';
+
+const MovieCast = lazy(() =>
+  import('../Components/MovieCast' /* webpackChunkName: "movie-cast" */),
+);
+const MovieReviews = lazy(() =>
+  import('../Components/MovieReviews' /* webpackChunkName: "movie-reviews" */),
+);
 
 const Status = {
   IDLE: 'idle',
@@ -60,13 +65,15 @@ export default function MovieDetailsView() {
       {status === Status.RESOLVED && <MovieCard movie={movie} />}
       {status === Status.REJECTED && <ErrorView title={error.message} />}
 
-      <Route path={`${path}/cast`}>
-        {movie && <MovieCast id={movie.id} />}
-      </Route>
+      <Suspense fallback={<Loader />}>
+        <Route path={`${path}/cast`}>
+          {movie && <MovieCast id={movie.id} />}
+        </Route>
 
-      <Route path={`${path}/reviews`}>
-        {movie && <MovieReviews id={movie.id} />}
-      </Route>
+        <Route path={`${path}/reviews`}>
+          {movie && <MovieReviews id={movie.id} />}
+        </Route>
+      </Suspense>
     </>
   );
 }
