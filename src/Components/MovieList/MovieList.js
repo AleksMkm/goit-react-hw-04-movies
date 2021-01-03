@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import s from './MovieList.module.css';
 import imagePlaceholder from '../../images/imagePlaceholder.png';
+import makeSlug from '../../tools/slug';
 
 function MovieList({ movies, title }) {
   const location = useLocation();
@@ -14,11 +15,12 @@ function MovieList({ movies, title }) {
       <h2>{title}</h2>
       <ul className={s.list}>
         {movies.map(movie => {
+          const movieSlug = makeSlug(movie.title);
           return (
             <li key={movie.id} className={s.item}>
               <Link
                 to={{
-                  pathname: `/movies/${movie.id}`,
+                  pathname: `/movies/${movieSlug}-${movie.id}`,
                   state: navRoute,
                 }}
                 className={s.link}

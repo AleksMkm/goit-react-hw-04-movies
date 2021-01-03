@@ -25,10 +25,12 @@ export default function MovieDetailsView() {
   const [movie, setMovie] = useState(null);
   const [status, setStatus] = useState(Status.IDLE);
   const [error, setError] = useState(null);
-  const { movieId } = useParams();
+  const { slug } = useParams();
   const { url, path } = useRouteMatch();
 
   const location = useLocation();
+
+  const movieId = slug.match(/[0-9]+$/)[0];
 
   const isValidRoute =
     location.pathname === url ||

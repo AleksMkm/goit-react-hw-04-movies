@@ -13,6 +13,7 @@
     "react-scripts": "4.0.1",
     "react-spinners": "^0.9.0",
     "react-toastify": "^6.2.0",
+    "slugify": "^1.4.6",
     "web-vitals": "^0.2.4"
   },
   "scripts": {

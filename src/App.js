@@ -33,7 +33,7 @@ export default function App() {
             <SearchMoviesView />
           </Route>
 
-          <Route path="/movies/:movieId">
+          <Route path="/movies/:slug">
             <MovieDetailsView />
           </Route>
 
