@@ -1,47 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useQuery } from 'react-query';
 import PropTypes from 'prop-types';
 import moviesAPI from '../../services/movies-api';
 import Loader from '../Loader';
 import s from './MovieCast.module.css';
 import imagePlaceholder from '../../images/imagePlaceholder.png';
 
-const Status = {
-  IDLE: 'idle',
-  PENDING: 'pending',
-  RESOLVED: 'resolved',
-  REJECTED: 'rejected',
-};
-
 export default function MovieCast({ id }) {
-  const [cast, setCast] = useState(null);
-  const [status, setStatus] = useState(Status.IDLE);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    setStatus(Status.PENDING);
-    moviesAPI
-      .getMovieCast(id)
-      .then(data => {
-        console.log(data.cast);
-        if (data.cast.length === 0) {
-          throw new Error('Cast data is not available');
-        }
-        setCast(data.cast);
-        setStatus(Status.RESOLVED);
-      })
-      .catch(error => {
-        setError(error);
-        setStatus(Status.REJECTED);
-      });
-  }, [id]);
+  const { isLoading, isError, isSuccess, data, error } = useQuery(
+    ['movieCast', id],
+    async () => {
+      const data = await moviesAPI.getMovieCast(id);
+      if (data.cast.length === 0) {
+        throw new Error('Cast data is not available');
+      }
+      console.log(data.cast);
+      return data;
+    },
+    {
+      retry: false,
+    },
+  );
 
   return (
     <>
-      {status === Status.PENDING && <Loader />}
-      {status === Status.RESOLVED && (
+      {isLoading && <Loader />}
+      {isSuccess && (
         <div className={s.wrapper}>
           <ul className={s.list}>
-            {cast.map(actor => {
+            {data.cast.map(actor => {
               return (
                 <li className={s.item} key={actor.cast_id}>
                   <img
@@ -63,7 +50,7 @@ export default function MovieCast({ id }) {
           </ul>
         </div>
       )}
-      {status === Status.REJECTED && (
+      {isError && (
         <p style={{ fontFamily: 'Roboto, sans-serif' }}>{error.message}</p>
       )}
     </>
